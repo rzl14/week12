@@ -1,0 +1,26 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool dfs(TreeNode* a, TreeNode* b) {
+        if (b == NULL) return true;
+        if (a == NULL || a -> val != b -> val) return false;
+        return dfs(a -> left, b -> left) && dfs(a -> right, b -> right);
+    }
+    bool start(TreeNode* a, TreeNode* b) {
+        if (a == NULL) return false;
+        if (a -> val == b -> val) if (dfs(a, b)) return true;
+        return start(a -> left, b) || start(a -> right, b);
+    }
+    bool isSubStructure(TreeNode* A, TreeNode* B) {
+        if (B == NULL) return false;
+        return start(A, B);
+    }
+};
